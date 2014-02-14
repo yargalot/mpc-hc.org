@@ -35,8 +35,13 @@ body {
     margin-bottom: 10px;
 }
 
-.post-meta .date {
+.post-meta .date,
+.post-meta .user {
     margin-right: 0.4em;
+}
+
+.full-news {
+    margin-bottom: 2em;
 }
 
 .new > h3 {
