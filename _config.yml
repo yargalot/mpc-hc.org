@@ -42,3 +42,5 @@ feed:
   url:              https://mpc-hc.org
 
 news_limit:         5
+
+github_repo:        https://github.com/mpc-hc/mpc-hc.org/tree/master/source
