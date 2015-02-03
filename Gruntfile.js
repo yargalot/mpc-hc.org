@@ -107,6 +107,19 @@ module.exports = function(grunt) {
             }
         },
 
+        critical: {
+            dist: {
+                options: {
+                    base: "<%= dirs.dest %>",
+                    css: ["<%= concat.css.dest %>"],
+                    width: 360,
+                    height: 640
+                },
+                src: "<%= dirs.dest %>/index.html",
+                dest: "<%= dirs.src %>/_includes/critical.css"
+            }
+        },
+
         cssmin: {
             minify: {
                 options: {
@@ -154,18 +167,27 @@ module.exports = function(grunt) {
         },
 
         useminPrepare: {
-            html: "<%= dirs.dest %>/index.html",
             options: {
                 dest: "<%= dirs.dest %>",
                 root: "<%= dirs.dest %>"
-            }
+            },
+            html: "<%= dirs.dest %>/index.html"
         },
 
         usemin: {
+            options: {
+                assetsDirs: [
+                    "<%= dirs.dest %>/",
+                    "<%= dirs.dest %>/assets/css/",
+                    "<%= dirs.dest %>/assets/img/"
+                ]
+            },
             css: "<%= dirs.dest %>/assets/css/pack*.css",
             html: ["<%= dirs.dest %>/**/*.html", "<%= dirs.dest %>/**/*.php"],
-            options: {
-                assetsDirs: ["<%= dirs.dest %>/", "<%= dirs.dest %>/assets/img/"]
+            patterns: {
+              html: [
+                [/loadCSS\(['"]([^"']+)['"]\)/gm, "Replacing reference to CSS within `loadCSS`"]
+              ]
             }
         },
 
@@ -269,6 +291,7 @@ module.exports = function(grunt) {
         "copy",
         "concat",
         "uncss",
+        "critical",
         "cssmin",
         "uglify",
         "filerev",
@@ -290,6 +313,7 @@ module.exports = function(grunt) {
         "useminPrepare",
         "copy",
         "concat",
+        "critical",
         "filerev",
         "usemin"
     ]);
