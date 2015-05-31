@@ -107,16 +107,13 @@ module.exports = function(grunt) {
             }
         },
 
-        critical: {
-            dist: {
-                options: {
-                    base: "<%= dirs.dest %>",
-                    css: ["<%= concat.css.dest %>"],
-                    width: 360,
-                    height: 640
-                },
-                src: "<%= dirs.dest %>/index.html",
-                dest: "<%= dirs.src %>/_includes/critical.css"
+        penthouse: {
+            extract: {
+                outfile: "<%= dirs.src %>/_includes/critical.css",
+                css: "<%= uncss.dist.dest %>",
+                url: "http://localhost:<%= connect.penthouse.options.port %>/",
+                width: 360,
+                height: 640
             }
         },
 
@@ -216,14 +213,20 @@ module.exports = function(grunt) {
 
         connect: {
             options: {
-                hostname: "localhost",
-                livereload: 35729,
-                port: 8000
+                hostname: "localhost"
             },
             livereload: {
                 options: {
+                    livereload: 35729,
+                    port: 8000,
                     base: "<%= dirs.dest %>/",
                     open: true  // Automatically open the webpage in the default browser
+                }
+            },
+            penthouse: {
+                options: {
+                    port: 9000,
+                    base: "<%= dirs.dest %>/"
                 }
             }
         },
@@ -291,7 +294,8 @@ module.exports = function(grunt) {
         "copy",
         "concat",
         "uncss",
-        "critical",
+        "connect:penthouse",
+        "penthouse",
         "cssmin",
         "uglify",
         "filerev",
@@ -313,20 +317,32 @@ module.exports = function(grunt) {
         "useminPrepare",
         "copy",
         "concat",
-        "critical",
+        "connect:penthouse",
+        "penthouse",
+        "filerev",
+        "usemin"
+    ]);
+
+    grunt.registerTask("pen", [
+        "jekyll",
+        "useminPrepare",
+        "copy",
+        "concat",
+        "connect:penthouse",
+        "penthouse",
         "filerev",
         "usemin"
     ]);
 
     grunt.registerTask("server", [
         "build",
-        "connect",
+        "connect:livereload",
         "watch:build"
     ]);
 
     grunt.registerTask("default", [
         "dev",
-        "connect",
+        "connect:livereload",
         "watch:dev"
     ]);
 
