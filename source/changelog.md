@@ -8,13 +8,10 @@ description: Changelog of the latest MPC-HC stable build
 
 # Changelog
 
-<div class="alert alert-info" role="alert">
-    <h4><span class="fa fa-info-circle" aria-hidden="true"></span> Note</h4>
-    <p>
-        This changelog only applies to the current stable build.
-        For the full changelog check the <a href="#all-changelogs" class="alert-link">links below</a>.
-   </p>
-</div>
+{% alert info %}
+This changelog only applies to the current stable build.
+For the full changelog check the <a href="#all-changelogs" class="alert-link">links below</a>.
+{% endalert %}
 
 
 ## {{ site.version.short }} - {{ site.version.date }}

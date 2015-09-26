@@ -16,12 +16,9 @@ This is an abbreviation definition
 # FAQ
 {:.no_toc}
 
-<div class="alert alert-info" role="alert">
-    <h4><span class="fa fa-info-circle" aria-hidden="true"></span> Note</h4>
-    <p>
-        <a href="https://github.com/mpc-hc/mpc-hc.org" class="alert-link">Help us add more information to this page</a>.
-   </p>
-</div>
+{% alert info %}
+<a href="https://github.com/mpc-hc/mpc-hc.org" class="alert-link">Help us add more information to this page</a>.
+{% endalert %}
 
 ---
 

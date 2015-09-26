@@ -8,19 +8,18 @@ description: Download our binaries, source code, etc.
 
 <h1 id="downloads">Downloads</h1>
 
-<div class="alert alert-info" role="alert">
-    <h4><span class="fa fa-info-circle" aria-hidden="true"></span> Note</h4>
-    <ul>
-        <li>
-            <strong>Supported Operating Systems:</strong>
-            <p>Windows® XP SP3, Vista, 7, 8, 8.1, 10 both 32-bit and 64-bit</p>
-        </li>
-        <li>
-            <strong>System Requirements:</strong>
-            <p>An SSE capable CPU</p>
-        </li>
-   </ul>
-</div>
+{% alert info %}
+<ul>
+    <li>
+        <strong>Supported Operating Systems:</strong>
+        <p>Windows® XP SP3, Vista, 7, 8, 8.1, 10 both 32-bit and 64-bit</p>
+    </li>
+    <li>
+        <strong>System Requirements:</strong>
+        <p>An SSE capable CPU</p>
+    </li>
+</ul>
+{% endalert %}
 
 
 <p class="downloads-version">
