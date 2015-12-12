@@ -7,6 +7,7 @@ highlighter:        false
 gems:
   - jekyll-feed
   - jekyll-paginate
+  - jekyll-seo-tag
   - jekyll-sitemap
 
 exclude:
@@ -40,5 +41,19 @@ feed:
   description:      Latest information about the MPC-HC project.
   path:             rss.xml
   url:              https://mpc-hc.org
+
+
+facebook:
+  app_id: 1552669435051497
+
+twitter:
+  username:         mpc_hc
+
+social:
+  type:             organization
+  name:             MPC-HC
+  links:            ["https://www.facebook.com/MediaPlayerClassicHomeCinema", "https://twitter.com/mpc_hc/", "https://plus.google.com/+Mpc-hcOrg/"]
+
+logo:               assets/img/logo-256x256.png
 
 news_limit:         5
