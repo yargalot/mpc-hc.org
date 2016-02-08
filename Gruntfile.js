@@ -70,6 +70,9 @@ module.exports = function(grunt) {
                       "<%= dirs.src %>/assets/js/vendor/bootstrap.js",
                       "<%= dirs.src %>/assets/js/vendor/jquery.mousewheel.js",
                       "<%= dirs.src %>/assets/js/vendor/jquery.fancybox.js",
+                      "<%= dirs.src %>/assets/js/detect-os.js",
+                      "<%= dirs.src %>/assets/js/downloads.js",
+                      "<%= dirs.src %>/assets/js/fancybox.js",
                       "<%= dirs.src %>/assets/js/img-defer.js",
                       "<%= dirs.src %>/assets/js/no-js-class.js",
                       "<%= dirs.src %>/assets/js/google-analytics.js"],
@@ -236,7 +239,7 @@ module.exports = function(grunt) {
                 jshintrc: ".jshintrc"
             },
             files: {
-                src: ["Gruntfile.js", "<%= dirs.src %>/assets/js/*.js", "!<%= dirs.src %>/assets/js/google-analytics.js"]
+                src: ["Gruntfile.js", "!<%= dirs.src %>/assets/js/google-analytics.js"]
             }
         },
 
@@ -265,7 +268,7 @@ module.exports = function(grunt) {
         "uglify",
         "filerev",
         "usemin",
-        "cdnify",
+        //"cdnify",
         "htmlmin"
     ]);
 
