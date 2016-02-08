@@ -166,6 +166,35 @@ module.exports = function(grunt) {
             }
         },
 
+        sri: {
+            dist: {
+                options: {
+                    "algorithms": ["sha256"]
+                },
+                src: [
+                    "<%= dirs.dest %>/assets/css/pack*.css",
+                    "<%= dirs.dest %>/assets/js/pack*.js"
+                ]
+            }
+        },
+
+        includereplace: {
+            dist: {
+                options: {
+                    globals: {
+                        packCssIntegrity: "<%= grunt.file.readJSON('payload.json')[0] %>",
+                        packJsIntegrity: "<%= grunt.file.readJSON('payload.json')[1] %>"
+                    }
+                },
+                files: [{
+                    src: ["**/*.html", "!**/google*.html"],
+                    dest: "<%= dirs.dest %>/",
+                    expand: true,
+                    cwd: "<%= dirs.dest %>/"
+                }]
+            }
+        },
+
         cdnify: {
             build: {
                 options: {
@@ -283,7 +312,9 @@ module.exports = function(grunt) {
         "copy",
         "concat",
         "filerev",
-        "usemin"
+        "usemin",
+        "sri",
+        "includereplace"
     ]);
 
     grunt.registerTask("server", [
