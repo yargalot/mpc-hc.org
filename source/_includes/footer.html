@@ -3,6 +3,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-3 footer-left">
                         <h3>Follow us on</h3>
+
                         <ul class="social-ul list-inline">
                             <li>
                                 <a href="https://www.facebook.com/MediaPlayerClassicHomeCinema" title="Like our page on Facebook!">
@@ -35,10 +36,12 @@
                                 </a>
                             </li>
                         </ul>
-                        <p>
-                            <a href="/acknowledgments/">Acknowledgments</a>
-                        </p>
+                        <ul class="list-unstyled">
+                            <li><a href="/acknowledgments/">Acknowledgments</a></li>
+                            <li><a href="/sitemap/">Sitemap</a></li>
+                        </ul>
                     </div>
+
                     <!--googleoff: all-->
                     <div class="col-xs-12 col-sm-3 footer-center cloudvps">
                         <p>
@@ -50,6 +53,7 @@
                             <noscript><img src="/assets/img/cloudvps_small.png" width="100" height="70" title="CloudVPS - Private Cloud, Clusters &amp; VPS" alt="CloudVPS logo"></noscript>
                         </a>
                     </div>
+
                     <div class="col-xs-12 col-sm-3 footer-center maxcdn">
                         <p>
                             Binaries and Website powered by <a href="https://www.maxcdn.com/" target="_blank">MaxCDN</a>
@@ -57,11 +61,13 @@
                         <a href="https://www.maxcdn.com/" title="MaxCDN" target="_blank"><span class="fa fa-maxcdn fa-5x" aria-hidden="true"></span></a>
                     </div>
                     <!--googleon: all-->
+
                     <div class="col-xs-12 col-sm-3 footer-right">
                         <p>Site last updated on <time class="last-updated" datetime="{{ site.time | date_to_xmlschema }}" title="{{ site.time | date_to_rfc822 }}">{{ site.time | date_to_long_string }}</time>.</p>
                         <p>Copyright &copy; 2012-{{ site.time | date: '%Y' }} <a href="/about/">MPC-HC Team</a></p>
                     </div>
                 </div>
+
             </div>
         </footer>
 
@@ -73,28 +79,8 @@
             </div>
         </noscript>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
-        <script>window.jQuery || document.write('<script src="https://assets.mpc-hc.org/assets/js/vendor/jquery-2.1.4.min.js"><\/script>')</script>
+        <script src="/assets/js/pack.js" integrity="@@packJsIntegrity" crossorigin="anonymous" async></script>
+        <script src="/assets/js/jquery-pack.js" integrity="@@jqueryPackJsIntegrity" crossorigin="anonymous" async></script>
 
-        <script src="/assets/js/pack.js"></script>
-        {% if page.slug == "home" %}
-            {% include detect-os.html %}
-        {% endif %}
-
-        {% if page.slug == "downloads" %}
-            {% include downloads.html %}
-        {% endif %}
-
-        {% if page.useFancybox %}
-            {% include fancybox.html %}
-        {% endif %}
-
-        <script>
-            window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
-            ga('create', 'UA-9335012-2', 'mpc-hc.org');
-            ga('set', 'anonymizeIp', true);
-            ga('send', 'pageview')
-        </script>
-        <script src="https://www.google-analytics.com/analytics.js" async defer></script>
     </body>
 </html>

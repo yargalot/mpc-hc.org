@@ -1,7 +1,7 @@
-http://getbootstrap.com/customize/?id=e64480a4eab9b0a3ec0c
+http://getbootstrap.com/customize/?id=331b5a4727fb4e1026d828ca0f98e57e
 
 
-Enabled components in v3.3.6:
+Enabled components in v3.3.7:
 
 
 * Common CSS (all)
@@ -22,16 +22,16 @@ Enabled components in v3.3.6:
   * Pager
   * Thumbnails
   * Alerts
+  * List groups
   * Panels
   * Wells
   * Close icon
 
 * JavaScript components
-  * Component animations (for JS) (includes Collapse) 
+  * Component animations (for JS) (includes Collapse)
   * Dropdowns
 
 * jQuery plugins
-  * Alert dismissal
   * Dropdowns
   * Collapse
   * Transitions

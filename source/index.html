@@ -3,7 +3,6 @@ layout: default
 title: Home
 permalink: /
 slug: home
-useFancybox: true
 ---
 
 {% if paginator.page > 1 %}
@@ -19,7 +18,7 @@ useFancybox: true
 
 <div class="button-wrapper">
     <a href="https://binaries.mpc-hc.org/MPC%20HomeCinema%20-%20Win32/MPC-HC_v{{ site.version.short }}_x86/MPC-HC.{{ site.version.short }}.x86.exe"
-        id="downloadButton" class="btn btn-default btn-lg">
+        id="downloadButton" class="btn btn-default btn-lg" data-version="{{ site.version.short }}">
         <span class="fa fa-download" aria-hidden="true"></span> MPC-HC - Download now!
     </a>
     <p class="button-sub">{{ site.version.short }} <span>32-bit</span> - <a href="/downloads/">Other systems &amp; versions</a></p>
@@ -27,11 +26,10 @@ useFancybox: true
 
 <hr>
 
-<div class="row features">
+<div class="row features gallery">
     <div class="col-xs-12 col-sm-4">
-        <a class="thumbnail" data-fancybox-group="gallery" href="/assets/img/screenshots/mpc-hc.original.png" title="MPC-HC's main window">
-            <img class="defer" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACAQMAAACnuvRZAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAAApJREFUeF5jAAIAAAQAARxtHuMAAAAASUVORK5CYII=" data-src="/assets/img/screenshots/mpc-hc.original.thumb.png" width="300" height="200" alt="MPC-HC's main window">
-            <noscript><img src="/assets/img/screenshots/mpc-hc.original.thumb.png" width="300" height="200" alt="MPC-HC's main window"></noscript>
+        <a class="thumbnail" href="/assets/img/screenshots/mpc-hc.original.png" title="MPC-HC's main window">
+            <img src="/assets/img/screenshots/mpc-hc.original.thumb.png" width="300" height="200" alt="MPC-HC's main window">
         </a>
         <h1>Lightweight</h1>
         <p>
@@ -39,23 +37,18 @@ useFancybox: true
         </p>
     </div>
     <div class="col-xs-12 col-sm-4">
-        <a class="thumbnail" data-fancybox-group="gallery" href="/assets/img/screenshots/mpc-hc.toolbar.png" title="MPC-HC with custom toolbar" data-title-id="title-toolbar">
-            <img class="defer" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACAQMAAACnuvRZAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAAApJREFUeF5jAAIAAAQAARxtHuMAAAAASUVORK5CYII=" data-src="/assets/img/screenshots/mpc-hc.toolbar.thumb.png" width="300" height="200" alt="MPC-HC with custom toolbar">
-            <noscript><img src="/assets/img/screenshots/mpc-hc.toolbar.thumb.png" width="300" height="200" alt="MPC-HC with custom toolbar"></noscript>
+        <a class="thumbnail" href="/assets/img/screenshots/mpc-hc.toolbar.png" title="MPC-HC with custom toolbar" data-title-id="title-toolbar">
+            <img src="/assets/img/screenshots/mpc-hc.toolbar.thumb.png" width="300" height="200" alt="MPC-HC with custom toolbar">
         </a>
-        <div id="title-toolbar" class="hidden">
-            MPC-HC with <a href="https://trac.mpc-hc.org/wiki/Toolbar_images" target="_blank">custom toolbar</a>.
-        </div>
-
         <h1>Customizable</h1>
         <p>
-            With its wide array of options, MPC-HC can be customized to fit almost any needs. Among other things we added custom toolbars.
+            With its wide array of options, MPC-HC can be customized to fit almost any needs.
+            Among other things, we added <a href="https://trac.mpc-hc.org/wiki/Toolbar_images" target="_blank">custom toolbars</a>.
         </p>
     </div>
     <div class="col-xs-12 col-sm-4">
-        <a class="thumbnail" data-fancybox-group="gallery" href="/assets/img/screenshots/mpc-hc.dvb.png" title="MPC-HC as DVB Player">
-            <img class="defer" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACAQMAAACnuvRZAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAAApJREFUeF5jAAIAAAQAARxtHuMAAAAASUVORK5CYII=" data-src="/assets/img/screenshots/mpc-hc.dvb.thumb.png" width="300" height="200" alt="MPC-HC as DVB Player">
-            <noscript><img src="/assets/img/screenshots/mpc-hc.dvb.thumb.png" width="300" height="200" alt="MPC-HC as DVB Player"></noscript>
+        <a class="thumbnail" href="/assets/img/screenshots/mpc-hc.dvb.png" title="MPC-HC as DVB Player">
+            <img src="/assets/img/screenshots/mpc-hc.dvb.thumb.png" width="300" height="200" alt="MPC-HC as DVB Player">
         </a>
 
         <h1>All around player</h1>

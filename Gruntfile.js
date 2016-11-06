@@ -1,20 +1,11 @@
-"use strict";
+'use strict';
 
 module.exports = function(grunt) {
 
     grunt.initConfig({
         dirs: {
-            dest: "_site",
-            src: "source"
-        },
-
-        // Copy files that don't need compilation to dist/
-        copy: {
-            dist: {
-                files: [
-                    {dest: "<%= dirs.dest %>/", src: "assets/js/vendor/jquery*.min.js", expand: true, cwd: "<%= dirs.src %>/"},
-                ]
-            }
+            dest: '_site',
+            src: 'source'
         },
 
         jekyll: {
@@ -29,87 +20,122 @@ module.exports = function(grunt) {
         htmlmin: {
             dist: {
                 options: {
-                    collapseWhitespace: true,
                     collapseBooleanAttributes: true,
+                    collapseWhitespace: true,
+                    conservativeCollapse: false,
+                    decodeEntities: true,
                     ignoreCustomComments: [/^\s*google(off|on):\s/],
                     minifyCSS: {
-                        compatibility: "ie9",
+                        compatibility: 'ie9',
                         keepSpecialComments: 0
                     },
                     minifyJS: true,
                     minifyURLs: false,
+                    processConditionalComments: true,
                     removeAttributeQuotes: true,
                     removeComments: true,
                     removeOptionalAttributes: true,
                     removeOptionalTags: true,
                     removeRedundantAttributes: true,
                     removeScriptTypeAttributes: true,
-                    removeStyleLinkTypeAttributes: true
+                    removeStyleLinkTypeAttributes: true,
+                    removeTagWhitespace: false,
+                    sortAttributes: true,
+                    sortClassName: true
                 },
                 expand: true,
-                cwd: "<%= dirs.dest %>",
-                dest: "<%= dirs.dest %>",
-                src: [
-                    "**/*.html",
-                    "**/*.php"
-                ]
+                cwd: '<%= dirs.dest %>',
+                dest: '<%= dirs.dest %>',
+                src: ['**/*.html', '**/*.php']
             }
         },
 
         concat: {
             css: {
-                src: ["<%= dirs.src %>/assets/css/vendor/bootstrap.css",
-                      "<%= dirs.src %>/assets/css/vendor/font-awesome.css",
-                      "<%= dirs.src %>/assets/css/vendor/jquery.fancybox.css",
-                      "<%= dirs.src %>/assets/css/style.css"],
-                dest: "<%= dirs.dest %>/assets/css/pack.css"
+                src: [
+                    '<%= dirs.src %>/assets/css/vendor/font-awesome.css',
+                    '<%= dirs.src %>/assets/css/vendor/bootstrap.css',
+                    '<%= dirs.src %>/assets/css/vendor/baguetteBox.css',
+                    '<%= dirs.src %>/assets/css/fonts.css',
+                    '<%= dirs.src %>/assets/css/style.css'
+                ],
+                dest: '<%= dirs.dest %>/assets/css/pack.css'
+            },
+            jqueryJS: {
+                src: [
+                    '<%= dirs.src %>/assets/js/vendor/jquery.min.js',
+                    '<%= dirs.src %>/assets/js/vendor/bootstrap.js',
+                    '<%= dirs.src %>/assets/js/downloads.js'
+                ],
+                dest: '<%= dirs.dest %>/assets/js/jquery-pack.js'
             },
             js: {
-                src: ["<%= dirs.src %>/assets/js/vendor/plugins.js",
-                      "<%= dirs.src %>/assets/js/vendor/bootstrap.js",
-                      "<%= dirs.src %>/assets/js/vendor/jquery.mousewheel.js",
-                      "<%= dirs.src %>/assets/js/vendor/jquery.fancybox.js",
-                      "<%= dirs.src %>/assets/js/img-defer.js",
-                      "<%= dirs.src %>/assets/js/no-js-class.js"],
-                dest: "<%= dirs.dest %>/assets/js/pack.js"
+                src: [
+                    '<%= dirs.src %>/assets/js/vendor/plugins.js',
+                    '<%= dirs.src %>/assets/js/vendor/baguetteBox.js',
+                    '<%= dirs.src %>/assets/js/baguetteBox-init.js',
+                    '<%= dirs.src %>/assets/js/detect-os.js',
+                    '<%= dirs.src %>/assets/js/img-defer.js',
+                    '<%= dirs.src %>/assets/js/no-js-class.js',
+                    '<%= dirs.src %>/assets/js/google-analytics.js'
+                ],
+                dest: '<%= dirs.dest %>/assets/js/pack.js'
+            }
+        },
+
+        autoprefixer: {
+            options: {
+                browsers: [
+                    'last 2 version',
+                    '> 1%',
+                    'Edge >= 12',
+                    'Explorer >= 9',
+                    'Firefox ESR',
+                    'Opera 12.1'
+                ]
+            },
+            pack: {
+                src: '<%= concat.css.dest %>',
+                dest: '<%= concat.css.dest %>'
             }
         },
 
         uncss: {
             options: {
                 ignore: [
-                    /(#|\.)fancybox(\-[a-zA-Z]+)?/,
+                    /(#|\.)baguetteBox(-[a-zA-Z]+)?/,
                     // Bootstrap selectors added via JS
                     /\w\.in/,
-                    ".fade",
-                    ".collapse",
-                    ".collapsing",
-                    /(#|\.)navbar(\-[a-zA-Z]+)?/,
-                    /(#|\.)dropdown(\-[a-zA-Z]+)?/,
+                    '.fade',
+                    '.collapse',
+                    '.collapsed',
+                    '.collapsing',
+                    /(#|\.)navbar(-[a-zA-Z]+)?/,
+                    /(#|\.)dropdown(-[a-zA-Z]+)?/,
                     /(#|\.)(open)/,
                     // injected via JS
                     /disabled/,
-                    /fa-chevron-up/,
-                    /\.no\-js/
+                    /\.no-js/,
+                    /\.defer/
                 ],
-                htmlroot: "<%= dirs.dest %>",
+                htmlroot: '<%= dirs.dest %>',
                 ignoreSheets: [/fonts.googleapis/],
-                stylesheets: ["/assets/css/pack.css"]
+                stylesheets: ['/assets/css/pack.css']
             },
             dist: {
-                src: "<%= dirs.dest %>/**/*.html",
-                dest: "<%= concat.css.dest %>"
+                src: '<%= dirs.dest %>/**/*.html',
+                dest: '<%= concat.css.dest %>'
             }
         },
 
         cssmin: {
             minify: {
                 options: {
-                    keepSpecialComments: 0,
-                    compatibility: "ie9"
+                    compatibility: 'ie9',
+                    keepSpecialComments: 0
                 },
                 files: {
-                    "<%= uncss.dist.dest %>": "<%= concat.css.dest %>"
+                    '<%= uncss.dist.dest %>': '<%= concat.css.dest %>'
                 }
             }
         },
@@ -124,78 +150,75 @@ module.exports = function(grunt) {
             },
             minify: {
                 files: {
-                    "<%= concat.js.dest %>": "<%= concat.js.dest %>"
+                    '<%= concat.js.dest %>': '<%= concat.js.dest %>',
+                    '<%= concat.jqueryJS.dest %>': '<%= concat.jqueryJS.dest %>'
                 }
             }
         },
 
         filerev: {
             css: {
-                src: "<%= dirs.dest %>/assets/css/**/{,*/}*.css"
-             },
+                src: '<%= dirs.dest %>/assets/css/**/*.css'
+            },
             js: {
                 src: [
-                    "<%= dirs.dest %>/assets/js/**/{,*/}*.js",
-                    "!<%= dirs.dest %>/assets/js/vendor/jquery*.min.js"
+                    '<%= dirs.dest %>/assets/js/**/*.js',
+                    '!<%= dirs.dest %>/assets/js/vendor/jquery*.min.js'
                 ]
             },
             images: {
                 src: [
-                    "<%= dirs.dest %>/assets/img/**/*.{jpg,jpeg,gif,png}",
-                    "!<%= dirs.dest %>/assets/img/logo-256x256.png",
-                    "!<%= dirs.dest %>/assets/img/tiles/*.png"
+                    '<%= dirs.dest %>/assets/img/**/*.{jpg,jpeg,gif,png,svg}',
+                    '!<%= dirs.dest %>/assets/img/logo-256x256.png',
+                    '!<%= dirs.dest %>/assets/img/tiles/*.png'
                 ]
             }
         },
 
         useminPrepare: {
-            html: "<%= dirs.dest %>/index.html",
+            html: '<%= dirs.dest %>/index.html',
             options: {
-                dest: "<%= dirs.dest %>",
-                root: "<%= dirs.dest %>"
+                dest: '<%= dirs.dest %>',
+                root: '<%= dirs.dest %>'
             }
         },
 
         usemin: {
-            css: "<%= dirs.dest %>/assets/css/pack*.css",
-            html: ["<%= dirs.dest %>/**/*.html", "<%= dirs.dest %>/**/*.php"],
+            css: '<%= dirs.dest %>/assets/css/pack*.css',
+            html: ['<%= dirs.dest %>/**/*.html', '<%= dirs.dest %>/**/*.php'],
             options: {
-                assetsDirs: ["<%= dirs.dest %>/", "<%= dirs.dest %>/assets/img/"]
+                assetsDirs: ['<%= dirs.dest %>/', '<%= dirs.dest %>/assets/img/']
             }
         },
 
         cdnify: {
             build: {
                 options: {
-                    base: "https://assets.mpc-hc.org/",
+                    base: 'https://cdn.mpc-hc.org/',
                     html: {
-                        "meta[name='msapplication-TileImage']": "content",
-                        "meta[name='msapplication-square70x70logo']": "content",
-                        "meta[name='msapplication-square150x150logo']": "content",
-                        "meta[name='msapplication-wide310x150logo']": "content",
-                        "meta[name='msapplication-square310x310logo']": "content",
-                        "meta[itemprop='image']": "content",
-                        "meta[property='og:image:secure_url']": "content"
+                        'meta[itemprop="image"]': 'content',
+                        'meta[property="og:image:secure_url"]': 'content',
+                        'input[type="image"]': 'src'
                     }
                 },
                 files: [{
-                  expand: true,
-                  cwd: "<%= dirs.dest %>/",
-                  src: "**/*.{html,php}",
-                  dest: "<%= dirs.dest %>/"
+                    expand: true,
+                    cwd: '<%= dirs.dest %>/',
+                    src: '**/*.{html,php}',
+                    dest: '<%= dirs.dest %>/'
                 }]
             }
         },
 
         connect: {
             options: {
-                hostname: "localhost",
+                hostname: 'localhost',
                 livereload: 35729,
                 port: 8000
             },
             livereload: {
                 options: {
-                    base: "<%= dirs.dest %>/",
+                    base: '<%= dirs.dest %>/',
                     open: true  // Automatically open the webpage in the default browser
                 }
             }
@@ -203,114 +226,183 @@ module.exports = function(grunt) {
 
         watch: {
             options: {
-                livereload: "<%= connect.options.livereload %>"
+                livereload: '<%= connect.options.livereload %>'
             },
             dev: {
-                files: ["<%= dirs.src %>/**", ".jshintrc", "_config.yml", "Gruntfile.js"],
-                tasks: "dev"
+                files: ['<%= dirs.src %>/**', '.eslintrc', '_config.yml', 'Gruntfile.js'],
+                tasks: 'dev'
             },
             build: {
-                files: ["<%= dirs.src %>/**", ".jshintrc", "_config.yml", "Gruntfile.js"],
-                tasks: "build"
+                files: ['<%= dirs.src %>/**', '.eslintrc', '_config.yml', 'Gruntfile.js'],
+                tasks: 'build'
             }
         },
 
         csslint: {
             options: {
-                csslintrc: ".csslintrc"
+                csslintrc: '.csslintrc'
             },
-            src: "<%= dirs.src %>/assets/css/style.css"
+            src: '<%= dirs.src %>/assets/css/style.css'
         },
 
         bootlint: {
             options: {
-                relaxerror: ["W001", "W002", "W003"]
+                relaxerror: ['W001', 'W002', 'W003']
             },
-            files: "<%= dirs.dest %>/**/*.html"
+            files: '<%= dirs.dest %>/**/*.html'
         },
 
-        jshint: {
+        eslint: {
             options: {
-                jshintrc: ".jshintrc"
+                config: '.eslintrc'
             },
-            files: {
-                src: ["Gruntfile.js", "<%= dirs.src %>/assets/js/*.js"]
+            gruntfile: {
+                src: 'Gruntfile.js'
+            },
+            src: {
+                src: [
+                    '<%= dirs.src %>/assets/js/*.js',
+                    '!<%= dirs.src %>/assets/js/google-analytics.js'
+                ]
             }
         },
 
         htmllint: {
-            src: "<%= dirs.dest %>/**/*.html"
+            src: '<%= dirs.dest %>/**/*.html'
         },
 
         accessibility: {
             options: {
-                accessibilityLevel: "WCAG2AA",
+                accessibilityLevel: 'WCAG2AA',
+                ignore: [
+                    'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.Button.Name'
+                ],
                 reportLevels: {
                     notice: false,
                     warning: false,
                     error: true
-                },
-                //reportLocation: "reports",
-                //reportType: "txt"
+                }
             },
             test: {
-                src: "<%= dirs.dest %>/**/*.html"
+                src: '<%= dirs.dest %>/**/*.html'
             }
         },
 
         clean: {
-            dist: "<%= dirs.dest %>/"
+            dist: '<%= dirs.dest %>/'
         }
 
     });
 
     // Load any grunt plugins found in package.json.
-    require("load-grunt-tasks")(grunt, {scope: "devDependencies"});
-    require("time-grunt")(grunt);
+    require('load-grunt-tasks')(grunt, { scope: 'devDependencies' });
+    require('time-grunt')(grunt);
 
-    grunt.registerTask("build", [
-        "clean",
-        "jekyll",
-        "useminPrepare",
-        "copy",
-        "concat",
-        "uncss",
-        "cssmin",
-        "uglify",
-        "filerev",
-        "usemin",
-        "cdnify",
-        "htmlmin"
+    grunt.registerTask('generate-sri', 'Generate SRI hashes for our assets.', function () {
+
+        function sriDigest(filePattern) {
+            var sriToolbox = require('sri-toolbox');
+            var matches = grunt.file.expand({ filter: 'isFile' }, filePattern);
+            var match = matches[0];     // `grunt.file.expand` returns an array
+            var matchCount = matches.length;
+            var integrity = '';
+
+            if (matchCount === 0) {
+                grunt.fail.fatal('Generating SRI failed; didn\'t find any matches!');
+            } else if (matchCount > 1) {
+                // shouldn't really happen since we clean the '_site' directory
+                grunt.fail.fatal('Generating SRI failed; Found more than one matches!');
+            }
+
+            try {
+                integrity = sriToolbox.generate({ algorithms: ['sha384'] }, grunt.file.read(match));
+            } catch (err) {
+                grunt.log.error(err);
+                grunt.fail.fatal('Generating SRI hash failed.');
+            }
+
+            grunt.log.ok('Generated SRI hash for ' + match.cyan + '.');
+            return integrity;
+
+        }
+
+        var packCssIntegrity = sriDigest('_site/assets/css/pack.*.css');
+        var packJsIntegrity = sriDigest('_site/assets/js/pack.*.js');
+        var jqueryPackJsIntegrity = sriDigest('_site/assets/js/jquery-pack.*.js');
+
+        grunt.config('includereplace', {
+            dist: {
+                options: {
+                    globals: {
+                        packCssIntegrity: packCssIntegrity,
+                        packJsIntegrity: packJsIntegrity,
+                        jqueryPackJsIntegrity: jqueryPackJsIntegrity
+                    }
+                },
+                files: [{
+                    src: ['**/*.html', '**/*.php'],
+                    dest: '<%= dirs.dest %>/',
+                    expand: true,
+                    cwd: '<%= dirs.dest %>/'
+                }]
+            }
+        });
+
+    });
+
+    var buildTasks = [
+        'clean',
+        'jekyll',
+        'useminPrepare',
+        'concat',
+        'autoprefixer',
+        'uncss',
+        'cssmin',
+        'uglify',
+        'filerev',
+        'usemin',
+        'generate-sri',
+        'includereplace',
+        'cdnify',
+        'htmlmin'
+    ];
+
+    // If we are on CI, skip the cdnify task
+    if (process.env.CI && process.env.CI.toLowerCase() === 'true') {
+        buildTasks.splice(12, 1);
+    }
+    grunt.registerTask('build', buildTasks);
+
+    grunt.registerTask('test', [
+        'build',
+        'csslint',
+        'bootlint',
+        'eslint',
+        'htmllint',
+        'accessibility'
     ]);
 
-    grunt.registerTask("test", [
-        "build",
-        "csslint",
-        "bootlint",
-        "jshint",
-        "htmllint",
-        "accessibility"
+    grunt.registerTask('dev', [
+        'jekyll',
+        'useminPrepare',
+        'concat',
+        'autoprefixer',
+        'filerev',
+        'usemin',
+        'generate-sri',
+        'includereplace'
     ]);
 
-    grunt.registerTask("dev", [
-        "jekyll",
-        "useminPrepare",
-        "copy",
-        "concat",
-        "filerev",
-        "usemin"
+    grunt.registerTask('server', [
+        'build',
+        'connect',
+        'watch:build'
     ]);
 
-    grunt.registerTask("server", [
-        "build",
-        "connect",
-        "watch:build"
-    ]);
-
-    grunt.registerTask("default", [
-        "dev",
-        "connect",
-        "watch:dev"
+    grunt.registerTask('default', [
+        'dev',
+        'connect',
+        'watch:dev'
     ]);
 
 };

@@ -1,10 +1,13 @@
 name:               MPC-HC
 description:        MPC-HC, the free, open source media player for Windows
+lang:               en
 
 markdown:           kramdown
 highlighter:        false
 
 gems:
+  - jekyll-avatar
+  - jekyll-email-protect
   - jekyll-feed
   - jekyll-paginate
   - jekyll-sitemap
@@ -13,7 +16,6 @@ exclude:
 # we generate those files ourselves
 - "*.css"
 - "*.js"
-- "_old"
 
 # paginate
 paginate:           10
@@ -30,6 +32,8 @@ url:                https://mpc-hc.org
 encoding:           UTF-8
 
 # custom variables
+cdn_url:            https://cdn.mpc-hc.org
+
 version:
   short:            1.7.10
   long:             1.7.10.0
